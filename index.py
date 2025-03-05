@@ -21,9 +21,9 @@ def chat():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Vercel requires this
-def handler(event, context):
-    return app(event, context)
+# Correct entry point for Vercel
+def handler(request, *args):
+    return app(request.environ, lambda x, y: None)
 
 if __name__ == "__main__":
     app.run(debug=True)
